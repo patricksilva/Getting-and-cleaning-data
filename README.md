@@ -1,4 +1,4 @@
-# Getting-and-cleaning-data
+# Getting-and-cleaning-data Project
 
 ##Description
 run_analysis.R is a script that is designed to:
