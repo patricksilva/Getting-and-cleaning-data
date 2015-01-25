@@ -1,0 +1,92 @@
+#CodeBook
+Descirption of the data, variables and work performed to create the tidy data set.
+
+##Assumptions
+
+Raw data is located in the working directory in the folder UCI HAR Dataset/
+
+##Variables
+
+merged_data <- dataMerge("UCI HAR Dataset")
+extracted_mean_std_data_set <- extractMeanStd(merged_data, "UCI HAR Dataset")
+rewriteTidyData_set(extracted_mean_std_data_set, "./tidyset.txt")
+
+This code uses the functions defined in the script and the raw data to create the tidy data set.
+
+##dataMerge
+
+Data for dataMerge is read in from:
+- test/X_test.txt
+- train/X_train.txt
+- activities.txt
+- train/subject_train.txt
+- test/subject_test.txt
+- train/y_train.txt
+- test/y_test.txt
+
+dataMerge also provides for some rearrangement of labels
+
+- y_train_labels = a merged data table of the activity labels
+- y_test_labels = a merged data table of the label data based on the activity labels
+- train_data = merged training data with subject, activity, etc.
+- test_data = merged test data table with subject, activity, etc.
+- all_data = train_data and test_data merged
+
+##extractMeanStd
+
+extractMeanStd uses data from:
+
+- features.txt lists all the 541 features and their names
+
+Transformations inside extractMeanStd
+
+- mean_std_rows = subset of extracted mean() and std() columns
+- insert 3 colnames() to the data set for subject activity and activity id
+- mean_columns is the mean column subset
+- std_columns is the std column subset
+- mean_std_column_vector is the sorted vector containing mean_columns and std_columns
+- extracted_data_set is the final data table
+
+##rewriteTidyData_set
+
+All local variables inside this function are all derived after transformations
+
+Transformations inside rewriteTidayData_set
+
+- tidy_data is the data post dcast so that we can list mean for activities
+- col_names_vector is a vector containing formatted column headers
+- tidy_data is the final data table with column headers
+
+## Appendix: Data files
+The data provided is located within a .zip file which contains a folder entitled "UCI HAR Dataset". This folder contains:
+1. activity_labels.txt
+2. features_labels.txt
+3. README.txt
+4. subfolder entitled "test" containing
+  a. subfolder entitled "intertial signals" containing
+    i. body_acc_x_test.txt
+    ii. body_acc_y_test.txt
+    iii. body_acc_z_test.txt
+    iv. body_gyro_x_test.txt
+    v. body_gyro_y_test.txt
+    vi. body_gyro_z_test.txt
+    vii. total_acc_x_test.txt
+    viii. total_acc_y_test.txt
+    ix. total_acc_z_test.txt
+  b. subject_test.txt
+  c. x_test.txt
+  d. y_test.txt
+5. subfolder entitled "train" containing
+  a. subfolder entitled "intertial signals" containing
+    i. body_acc_x_train.txt
+    ii. body_acc_y_train.txt
+    iii. body_acc_z_train.txt
+    iv. body_gyro_x_train.txt
+    v. body_gyro_y_train.txt
+    vi. body_gyro_z_train.txt
+    vii. total_acc_x_train.txt
+    viii. total_acc_y_train.txt
+    ix. total_acc_z_train.txt
+  b. subject_train.txt
+  c. x_train.txt
+  d. y_train.txt
